@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinDigi | Money and digital tools, made simple</title>
+<meta name="description" content="Plain-language money guidance, digital tools and a free savings calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6fb;--ink:#0f1b33;--mute:#4d5b78;--line:#d5dcea;--blue:#2447d6;--gold:#f2b84b;--panel:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1526;--ink:#eef2fb;--mute:#a4b0c8;--line:#26334f;--blue:#7d97ff;--gold:#f2b84b;--panel:#152039}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 Manrope,system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Manrope,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font:800 1.4rem "Bricolage Grotesque",sans-serif;text-decoration:none}
+.logo span{color:var(--blue)}
+nav a{margin-left:20px;text-decoration:none;font-weight:500;color:var(--mute)}
+nav a:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:48px 0 72px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+.hero p{color:var(--mute);font-size:1.1rem;max-width:46ch;margin:18px 0 28px}
+.btn{display:inline-block;background:var(--blue);color:#fff;padding:13px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:1rem}
+.btn:hover{filter:brightness(1.1)}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px}
+.calc h2{font-size:1.25rem;margin-bottom:16px}
+.calc label{display:flex;justify-content:space-between;font-weight:500;font-size:.95rem;margin-top:14px}
+.calc output{font-weight:700}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.result{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line)}
+.result .big{font:800 2.3rem "Bricolage Grotesque",sans-serif}
+.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:12px 0 8px;background:var(--line)}
+.bar i{display:block;height:100%;transition:width .3s}
+#b1{background:var(--blue)}#b2{background:var(--gold)}
+.legend{font-size:.85rem;color:var(--mute);display:flex;gap:16px;flex-wrap:wrap}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+section>.wrap>h2{font-size:clamp(1.7rem,3.5vw,2.4rem);margin-bottom:8px}
+.lead{color:var(--mute);max-width:56ch;margin:0 0 36px}
+.rows>div{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:22px 0;border-top:1px solid var(--line)}
+.rows h3{font-size:1.2rem}
+.rows p{margin:0;color:var(--mute)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:s}
+.steps div{counter-increment:s}
+.steps div::before{content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:#0f1b33;font-weight:800;margin-bottom:12px}
+.steps h3{font-size:1.1rem;margin-bottom:6px}
+.steps p{margin:0;color:var(--mute)}
+form{display:grid;gap:14px;max-width:520px}
+form label{display:grid;gap:6px;font-weight:500}
+input,textarea{font:inherit;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-size:.9rem}
+footer p{margin:0 0 6px}
+@media(max-width:800px){.hero{grid-template-columns:1fr;gap:32px;padding-top:24px}.rows>div{grid-template-columns:1fr;gap:6px}.steps{grid-template-columns:1fr}nav a:not(:last-child){display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="#top">Fin<span>Digi</span></a>
+  <nav><a href="#services">Services</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <h1>Understand your money. Use digital tools that work for you.</h1>
+    <p>Clear guidance on saving, investing and going digital, without jargon. Start with the free calculator and see where your monthly savings can take you.</p>
+    <a class="btn" href="#contact">Get free guidance</a>
+  </div>
+  <div class="calc" aria-labelledby="ct">
+    <h2 id="ct">Savings growth calculator</h2>
+    <label for="amt">Monthly saving <output id="amtO"></output></label>
+    <input id="amt" type="range" min="5000" max="200000" step="5000" value="25000">
+    <label for="rate">Yearly return <output id="rateO"></output></label>
+    <input id="rate" type="range" min="2" max="20" step="1" value="10">
+    <label for="yrs">Years <output id="yrsO"></output></label>
+    <input id="yrs" type="range" min="1" max="30" step="1" value="10">
+    <div class="result" aria-live="polite">
+      <div>You could have</div>
+      <div class="big" id="total"></div>
+      <div class="bar"><i id="b1"></i><i id="b2"></i></div>
+      <div class="legend"><span><b style="background:var(--blue)"></b>You put in <span id="inv"></span></span><span><b style="background:var(--gold)"></b>Growth <span id="gro"></span></span></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<section id="services">
+<div class="wrap">
+  <h2>What we help with</h2>
+  <p class="lead">Three areas, explained in plain language.</p>
+  <div class="rows">
+    <div><h3>Saving and budgeting</h3><p>Build a monthly plan, set goals and track spending with simple templates you can start using today.</p></div>
+    <div><h3>Investing basics</h3><p>Learn how savings certificates, mutual funds and stocks differ, and what risk means before you commit any money.</p></div>
+    <div><h3>Digital payments and tools</h3><p>Set up mobile wallets, online banking and business tools safely, and learn to spot common scams.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="how">
+<div class="wrap">
+  <h2>How it works</h2>
+  <p class="lead">You stay in control at every step.</p>
+  <div class="steps">
+    <div><h3>Tell us your goal</h3><p>Saving for a house, starting a business or clearing debt. Share what matters to you.</p></div>
+    <div><h3>Get a clear plan</h3><p>We explain your options and their risks in simple words, so you can compare them.</p></div>
+    <div><h3>Take the next step</h3><p>Use our checklists and tools to act with confidence, at your own pace.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap">
+  <h2>Contact us</h2>
+  <p class="lead">Send a message and we will reply by email.</p>
+  <form id="f">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>Message<textarea name="msg" rows="4" required></textarea></label>
+    <button class="btn" type="submit">Send message</button>
+  </form>
+</div>
+</section>
+</div>
+
+<footer>
+<div class="wrap">
+  <p>&copy; 2026 FinDigi. All rights reserved.</p>
+  <p>Educational content only. This is not financial advice, and returns in the calculator are estimates, not guarantees.</p>
+</div>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>"Rs "+Math.round(n).toLocaleString("en-PK");
+function calc(){
+  const p=+$("amt").value,r=+$("rate").value/100/12,n=+$("yrs").value*12;
+  const fv=r?p*((Math.pow(1+r,n)-1)/r):p*n, inv=p*n, gro=fv-inv;
+  $("amtO").textContent=fmt(p);$("rateO").textContent=$("rate").value+"%";$("yrsO").textContent=$("yrs").value;
+  $("total").textContent=fmt(fv);$("inv").textContent=fmt(inv);$("gro").textContent=fmt(gro);
+  $("b1").style.width=(inv/fv*100)+"%";$("b2").style.width=(gro/fv*100)+"%";
+}
+["amt","rate","yrs"].forEach(i=>$(i).addEventListener("input",calc));calc();
+// Replace with your own email address:
+const TO="you@example.com";
+$("f").addEventListener("submit",e=>{
+  e.preventDefault();const d=new FormData(e.target);
+  location.href="mailto:"+TO+"?subject="+encodeURIComponent("Message from "+d.get("name"))+"&body="+encodeURIComponent(d.get("msg")+"\n\nReply to: "+d.get("email"));
+});
+</script>
+</body>
+</html>
